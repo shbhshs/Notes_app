@@ -1,0 +1,43 @@
+<html>
+
+<head>
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.js"
+	    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		  crossorigin="anonymous">
+	</script>
+	<script src='scripts.js'></script>
+	<link rel="stylesheet" type="text/css" href="primary.css" />	
+</head>
+
+<body>
+
+	<div id="sidebar">
+		<div>
+			<b>Keep</b>
+		</div>
+		<ul class="ulist">
+			<li class="notes">Notes</li>
+			<li class="trash">Trash</li>
+		</ul>
+	</div>
+	<div id="content">
+		<div id="notes">
+			<!-- 
+				Create boxes for the notes, These boxes have to be generated
+				at runtime.Lets create one first, statically.
+			-->
+			<div id='note'>
+				<input id='note-title' type='text' placeholder='Title'><br>
+				<textarea id='note-text' placeholder='Take a note'></textarea>
+			</div>
+				<textarea id='note-text' placeholder='Take a note'></textarea>
+
+		</div>
+		<div id='trash'>
+			trash
+		</div>
+	</div>
+
+</body>
+</html>
