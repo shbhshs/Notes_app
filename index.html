@@ -6,6 +6,7 @@
 	    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 		  crossorigin="anonymous">
 	</script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src='scripts.js'></script>
 	<link rel="stylesheet" type="text/css" href="primary.css" />	
 </head>
@@ -14,14 +15,24 @@
 
 	<div id="sidebar">
 		<div>
-			<b>Keep</b>
+			<b>Notes.com</b>
 		</div>
 		<ul class="ulist">
-			<li class="notes">Notes</li>
-			<li class="trash">Trash</li>
+			<li class="notes">
+				<i class="far fa-sticky-note"></i>
+				Notes
+			</li>
+			<li class="trash">
+				<i class="far fa-trash-alt"></i>
+				Trash
+			</li>
 		</ul>
 	</div>
 	<div id="content">
+		<div id="top-bar">
+			Hi Walter..
+			<i class="far fa-user usr-tile"></i>
+		</div>
 		<div id="notes">
 			<!-- 
 				Create boxes for the notes, These boxes have to be generated
@@ -30,12 +41,36 @@
 			<div id='note'>
 				<input id='note-title' type='text' placeholder='Title'><br>
 				<textarea id='note-text' placeholder='Take a note'></textarea>
+				<i class="far fa-save"></i>
+				<i class="far fa-trash-alt"></i>
 			</div>
+			<div id='note'>
+				<input id='note-title' type='text' placeholder='Title'><br>
 				<textarea id='note-text' placeholder='Take a note'></textarea>
+				<i class="far fa-save"></i>
+				<i class="far fa-trash-alt"></i>
+			</div>
+			<div id='note'>
+				<input id='note-title' type='text' placeholder='Title'><br>
+				<textarea id='note-text' placeholder='Take a note'></textarea>
+				<i class="far fa-save"></i>
+				<i class="far fa-trash-alt"></i>
+			</div>
 
 		</div>
 		<div id='trash'>
-			trash
+			<div id='note'>
+				<input id='note-title' type='text' placeholder='Title'><br>
+				<textarea id='note-text' placeholder='Take a note'></textarea>
+				<i class="far fa-save"></i>
+				<i class="fas fa-trash-restore"></i>
+			</div>
+			<div id='note'>
+				<input id='note-title' type='text' placeholder='Title'><br>
+				<textarea id='note-text' placeholder='Take a note'></textarea>
+				<i class="far fa-save"></i>
+				<i class="fas fa-trash-restore"></i>
+			</div>
 		</div>
 	</div>
 

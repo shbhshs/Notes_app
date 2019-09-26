@@ -1,14 +1,38 @@
 $(document).ready(function(){
-	$('ul.ulist li').on('click',function(){
+
+
+	$('ul.ulist li').on('click', function(){
 		var getClass = $(this).attr('class');
-		$("#content div").text(getClass);
+		if(getClass =='trash'){
+			$('#trash').css('display','block');
+			$('#notes').css('display','none');
+		}
+		if(getClass =='notes'){
+			$('#notes').css('display','block');
+			$('#trash').css('display','none');
+		}
+
 	});
+	
+	
+	var textarea_array = document.querySelectorAll('textarea');
+
+	textarea_array.forEach(function(textarea) {
+		textarea.addEventListener('keydown', function (){
+		  	var el = this;
+		  	setTimeout(function(){
+				el.style.cssText = 'height:auto; padding:0';
+				// for box-sizing other than "content-box" use:
+				// el.style.cssText = '-moz-box-sizing:content-box';
+				el.style.cssText = 'height:' + el.scrollHeight + 'px';
+			},0);
+		  
+			// console.log(this,el.scrollHeight, el.style.cssText);
+		});
+	});
+	
 
 
-	$("#note-text").on('input', function() {
-		var scroll_height = $("#note-text").get(0).scrollHeight;
-		console.log(scroll_height,'hello');
-		$("#note-text").css('height', scroll_height + 'px;');
-		$("#note").css('height', scroll_height + 'px;');
-	});
 });
+
+

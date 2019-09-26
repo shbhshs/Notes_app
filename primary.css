@@ -10,7 +10,6 @@
 	float: left;
 	width: 20%;
 	height: 100%;
-	border-right: 2px solid gray;
 }
 
 #sidebar div{
@@ -19,7 +18,7 @@
 	padding-top: 5%;
 	padding-right: ; 
 	padding-bottom: 5%;
-	border-bottom: 2px solid gray;
+	/**border-bottom: 2px solid gray;**/
 }
 #sidebar ul li {
 	font-size: 160%;
@@ -27,17 +26,48 @@
 	padding-right: 20%;
 	padding-top: 5%;
 	padding-bottom: 5%;
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
 }
 
 #sidebar ul li:hover{
 	background: #383838;
 }
 
+.notes {
+
+}
+
+.trash {
+
+}
+
 #content{
 	position:relative;
 	float: left;
 	margin-left: 25%;
+	width: 75%;
 }
+
+
+#top-bar {
+	width : auto;
+	display: block;
+	height: %;
+	font-size: 2em;
+	padding: 2%;
+	/*background: red;*/
+}
+
+.usr-tile {
+	float: right;
+}
+
+#notes {
+	display: block;
+}
+
+
 
 #note {
 	border: 1px solid gray;
@@ -52,8 +82,9 @@
 }
 
 #note-title {
-	padding: 10px;
+	padding: 5px;
 	border: none;
+	border-bottom: 1px solid gray;
 }
 
 #note-title:focus {
@@ -64,13 +95,28 @@
 	border: none;
 	size: none;
 	width: auto;
-	min-height: 100px;
+	margin-top: 4px;
 	padding: 5px;
 	overflow: hidden;
 	box-sizing: border-box;
+}
+
+textarea { 
+  /* box-sizing: padding-box; */
+  overflow:hidden;
+  /* demo only: */
+  padding:10px;
+  width:250px;
+  font-size:14px;
+  display:block;
+
 }
 
 #note-text:focus {
 	outline: none;
 }
 
+
+#trash {
+	display: none;
+}
