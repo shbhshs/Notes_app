@@ -2,77 +2,39 @@
 
 <head>
 	<script
-	  src="https://code.jquery.com/jquery-3.4.1.js"
-	    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-		  crossorigin="anonymous">
+         src="https://code.jquery.com/jquery-3.4.1.js"
+           integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+             crossorigin="anonymous">
 	</script>
-	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	<script src='scripts.js'></script>
-	<link rel="stylesheet" type="text/css" href="primary.css" />	
+	<script src='index_script.js'></script>
+	<link rel="stylesheet" type="text/css" href="index_style.css" />	
 </head>
 
 <body>
-
-	<div id="sidebar">
-		<div>
-			<b>Notes.com</b>
-		</div>
-		<ul class="ulist">
-			<li class="notes">
-				<i class="far fa-sticky-note"></i>
-				Notes
-			</li>
-			<li class="trash">
-				<i class="far fa-trash-alt"></i>
-				Trash
-			</li>
-		</ul>
-	</div>
-	<div id="content">
-		<div id="top-bar">
-			Hi Walter..
-			<i class="far fa-user usr-tile"></i>
-		</div>
-		<div id="notes">
-			<!-- 
-				Create boxes for the notes, These boxes have to be generated
-				at runtime.Lets create one first, statically.
-			-->
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="far fa-trash-alt"></i>
-			</div>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="far fa-trash-alt"></i>
-			</div>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="far fa-trash-alt"></i>
-			</div>
-
-		</div>
-		<div id='trash'>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="fas fa-trash-restore"></i>
-			</div>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="fas fa-trash-restore"></i>
-			</div>
+	<div class='login-page'> 
+		<div class='form'>
+			<form class='register-form'>
+				<input type='text' placeholder='Username' />
+				<input type='text' placeholder='First Name' />
+				<input type='text' placeholder='Last Name' />
+				<input type='password' placeholder='Password' />
+				<button>Register</button>
+				<p class='message'>Already registered? <a href='#'>Login</a></p>
+			</form>
+			<form class='login-form'>
+				<input type='text', placeholder='Username' />
+				<input type='password', placeholder='Password' />
+				<button>Login</button>
+				<p class='message'>Not registered? <a href='#'>Register</a></p>
+			</form>
 		</div>
 	</div>
-
+	
+	<script>
+		$('.message a').click(function(){
+			$('form').animate({height:"toggle", opacity: "toggle"},"slow");
+		});
+	</script>
 </body>
+
 </html>
