@@ -30,8 +30,10 @@
 	</div>
 	<div id="content">
 		<div id="top-bar">
-			Hi {{user_info[1]}}..
-			<i class="far fa-user usr-tile"></i>
+			Hi {{g.user}}..
+			<a href = 'http://localhost:5000/logout'>
+				<i class="far fa-user usr-tile"></i>
+			</a>
 		</div>
 		<div id="notes">
 			<!-- 

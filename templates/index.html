@@ -44,6 +44,9 @@
 			alert('Signup successfull !! Please try logging in.');
 		{% elif msg_code == 3 %}
 			alert('Incorrect username or password.');
+		{% elif msg_code == 4 %}
+			alert('You have been logged out.');
+
 		{% endif %}
 		});
 	</script>

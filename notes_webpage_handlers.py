@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, abort
+from flask import Flask, render_template, request, jsonify
+from flask import redirect, url_for, abort, session, g
 from flaskext.mysql import MySQL
+import os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 #database configuration
 mysql = MySQL()
@@ -17,25 +20,34 @@ def index():
 	return render_template('index.html')
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
 	if request.method == 'POST':
+		print('POST')
 		login_data = request.form
 		
 		conn = mysql.connect()
 		cursor = conn.cursor()
 		cursor.execute("select * from Users where username='{}'".format(login_data['user_name']))
 		query_result = cursor.fetchone()
-		if query_result is None:						
+
+		if query_result is None or query_result[3] != login_data['password']:						
 			# incorrect username but print incorrect username or passowor for security reasons
 			return render_template('index.html',msg_code=3)
 		elif query_result[3] == login_data['password']: # correct password
-			return render_template('notes_page.html', user_info=query_result)
+			session['user'] = login_data['user_name']
+			return redirect(url_for('notes'))
+	
+	if request.method == 'GET':
+		print('GET')
+		if g.user:
+			return redirect(url_for('notes'))
+		else:
+			return redirect(url_for('index'))
 
 
 
-
-@app.route('/registration', methods=['POST'])
+@app.route('/registration', methods=['GET','POST'])
 def registration():
 	if request.method == 'POST':
 		registration_data = request.form
@@ -54,8 +66,34 @@ def registration():
 			
 			return render_template('index.html',msg_code=1)
 		else:
-			return render_template('index.html',msg_code=2)#"Username already taken.<br>Please try different one")
+			return render_template('index.html',msg_code=2)
+	
+	return redirect(url_for('index'))
 
+
+@app.before_request
+def before_request():
+	g.user = None
+	if 'user' in session:
+		g.user = session['user']
+		print('before user:',g.user)
+
+@app.route('/notes')
+def notes():
+	if g.user:
+
+		return render_template('notes_page.html')
+	else:
+		return render_template('index.html')
+
+@app.route('/logout')
+def logout():
+	if g.user:
+		session.clear()
+		print('logout:', g.user)
+		return render_template('index.html', msg_code=4)
+	else:
+		return redirect(url_for('index'))
 
 if __name__ == '__main__':
 	app.run(debug=True)
