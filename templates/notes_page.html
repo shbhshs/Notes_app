@@ -31,8 +31,8 @@
 	<div id="content">
 		<div id="top-bar">
 			Hi {{g.user}}..
-			<a href = 'http://localhost:5000/logout'>
-				<i class="far fa-user usr-tile"></i>
+			<a href = '{{ url_for("logout") }}'>
+			<i class="fas fa-sign-out-alt logout-icon"></i>
 			</a>
 		</div>
 		<div id="notes">
@@ -40,39 +40,56 @@
 				Create boxes for the notes, These boxes have to be generated
 				at runtime.Lets create one first, statically.
 			-->
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="far fa-trash-alt"></i>
-			</div>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="far fa-trash-alt"></i>
-			</div>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="far fa-trash-alt"></i>
-			</div>
 
+			<div id='note'>
+				<form action='{{ url_for("note_create") }}', method='POST'>
+					<input id='note-title' name='note_title' type='text' placeholder='Title' required><br>
+					<textarea id='note-text' name='note_text' placeholder='Take a note' required></textarea>
+					<button>
+						<i class="fas fa-save"><span class="tooltiptext">Save</span></i>
+					</button>
+					<button formaction='{{ url_for("note_discard") }}'>
+						<i class="fas fa-trash-alt"><span class="tooltiptext">Discard</span></i>
+					</button>
+				</form>
+			</div>
+			{% for i in range(notes_data|length) %}
+				{% if notes_data[i][4] == 0 %}
+				<div id='note'>
+					<form action='{{ url_for("note_save") }}' method='POST'>
+						<input type='hidden' name='Id' value='{{ notes_data[i][0] }}'/>
+						<label id='note-title' type='text' placeholder='Title'>{{ notes_data[i][1] }}</label><br>
+						<textarea id='note-text' placeholder='Take a note' name='note_text'>{{ notes_data[i][2]}}</textarea>
+						<button>	
+							<i class="fas fa-save"><span class="tooltiptext">Save</span></i>
+						</button>
+						<button formaction='{{ url_for("note_delete") }}'>
+							<i class="fas fa-trash-alt"><span class="tooltiptext">Delete</span></i>
+						</button>
+					</form>
+				</div>
+				{% endif %}
+			{% endfor %}
+			
 		</div>
 		<div id='trash'>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="fas fa-trash-restore"></i>
-			</div>
-			<div id='note'>
-				<input id='note-title' type='text' placeholder='Title'><br>
-				<textarea id='note-text' placeholder='Take a note'></textarea>
-				<i class="far fa-save"></i>
-				<i class="fas fa-trash-restore"></i>
-			</div>
+			{% for i in range(notes_data|length) %}
+				{% if notes_data[i][4] == 1 %}
+				<div id='note'>
+					<form action='{{ url_for("trash_restore") }}' method='POST'>
+						<input type='hidden' name='Id' value='{{ notes_data[i][0] }}' />
+						<label id='note-title' type='text' placeholder='Title'>{{ notes_data[i][1] }}</label><br>
+						<textarea id='note-text' placeholder='Take a note' readonly>{{ notes_data[i][2] }}</textarea>
+						<button>
+							<i class="fas fa-trash-restore"><span class="tooltiptext">Restore</span></i>
+						</button>
+						<button formaction='{{ url_for("trash_delete") }}'>
+						<i class="fas fa-trash-alt"><span class="tooltiptext">Delete</span></i>
+						</button>
+					</form>
+				</div>
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
 

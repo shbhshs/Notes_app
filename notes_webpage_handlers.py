@@ -61,7 +61,11 @@ def registration():
 
 		# insert data
 		if query_result is None:
-			cursor.execute("insert into Users(username, first_name, last_name, passwd) values ('{}','{}','{}','{}')".format(registration_data['user_name'],registration_data['first_name'],registration_data['last_name'], registration_data['password']))
+			cursor.execute("insert into Users(username, first_name, last_name, passwd) values ('{}','{}','{}','{}')"	\
+							.format(registration_data['user_name'],				\
+									registration_data['first_name'],			\
+									registration_data['last_name'], 			\
+									registration_data['password']))			
 			conn.commit()
 			
 			return render_template('index.html',msg_code=1)
@@ -78,13 +82,121 @@ def before_request():
 		g.user = session['user']
 		print('before user:',g.user)
 
+
 @app.route('/notes')
 def notes():
 	if g.user:
+		conn = mysql.connect()
+		cursor = conn.cursor()
+		
+		cursor.execute('select * from Notes where creator="{}"'.format(g.user))
+		query_result = cursor.fetchall()
 
-		return render_template('notes_page.html')
+		return render_template('notes_page.html', notes_data = query_result)
 	else:
-		return render_template('index.html')
+		return redirect(url_for('index'))
+
+
+@app.route('/note/create', methods=['POST'])
+def note_create():
+	if g.user:
+		note_data = request.form
+
+		conn = mysql.connect()
+		cursor = conn.cursor()
+
+		cursor.execute('INSERT INTO Notes (title, notes, creator, deleted) VALUES("{}", "{}", "{}","{}")'	\
+						.format(note_data['note_title'], 		\
+								note_data['note_text'], 		\
+								g.user, 						\
+								'0'))
+		conn.commit()
+		cursor.close()
+
+		return redirect(url_for('notes'))
+	
+	else:
+		return redirect(url_for('index'))
+
+
+@app.route('/note/discard', methods=['POST'])
+def note_discard():
+	if g.user:
+		return redirect(url_for('notes'))
+	else:
+		return redirect(url_for('index'))
+
+
+@app.route('/note/save', methods=['POST'])
+def note_save():
+	if g.user:
+
+		notes_data = request.form
+
+		conn = mysql.connect()
+		cursor = conn.cursor()
+		
+		cursor.execute('update Notes set notes = "{}" where id = "{}"'		\
+						.format(notes_data['note_text'], 	\
+								notes_data['Id']))
+		conn.commit()
+		
+		return redirect(url_for('notes'))
+	
+	else:
+		return redirect(url_for('index'))
+
+@app.route('/note/delete', methods=['POST'])
+def note_delete():
+	if g.user:
+		notes_data = request.form
+
+		conn = mysql.connect()
+		cursor = conn.cursor()
+
+		cursor.execute('update Notes set deleted="{}" where id ="{}"'.format(1, notes_data['Id']))
+		conn.commit()
+		
+		return redirect(url_for('notes'))
+
+	else:
+		return redirect(url_for('index'))
+
+
+
+@app.route('/trash/restore', methods=['POST'])
+def trash_restore():
+	if g.user:
+		notes_data = request.form
+		conn =  mysql.connect()
+		cursor = conn.cursor()
+
+		cursor.execute('update Notes set deleted="{}" where id="{}"'.format(0, notes_data['Id']))
+		conn.commit()
+
+		return redirect(url_for('notes'))
+
+	else:
+		return redirect(url_for('index'))
+
+@app.route('/trash/delete', methods=['POST'])
+def trash_delete():
+	if g.user:
+		notes_data =  request.form
+	
+		conn =  mysql.connect()
+		cursor = conn.cursor()
+
+		cursor.execute('delete from Notes where id="{}"'.format(notes_data['Id']))
+		conn.commit()
+		
+		cursor.close()
+		return redirect(url_for('notes'))
+
+	else:
+		return redirect(url_for('index'))
+	
+
 
 @app.route('/logout')
 def logout():
