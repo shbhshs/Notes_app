@@ -5,7 +5,7 @@ This backend of the program is built using flask framework.
 * <b>Environment setup:</b><br>
 This project is based on python 3.6. Have added requirements.txt file to install the dependencies.<br>
 I would suggest creating new virtual environment either using virtual_env or conda (I myself used virtual_env).
-User the following command: `virtualenv -p /usr/bin/python3.6 <env_name>`. 
+Use the following command: `virtualenv -p /usr/bin/python3.6 <env_name>`. 
 <br>Then activate this env using:`source <env_name>/bin/activate`.
 <br>After that install all requirements in the requirements.txt file `pip install -r requirements.txt`
 
