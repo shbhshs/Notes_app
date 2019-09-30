@@ -20,6 +20,7 @@
 	padding-bottom: 5%;
 	/**border-bottom: 2px solid gray;**/
 }
+
 #sidebar ul li {
 	font-size: 160%;
 	padding-left: 30%;
@@ -31,17 +32,24 @@
 }
 
 #sidebar ul li:hover{
-	background: #383838;
+	background: #282828 !important;
 }
 
-.notes {
-
+.notes i,span {
+	background: transparent;
 }
 
-.trash {
-
+.notes span {
+	padding-left: 10%;	
 }
 
+.trash i,span {
+	background: transparent;
+}
+
+.trash span{
+	padding-left: 10%;
+}
 #content{
 	position:relative;
 	float: left;
@@ -70,18 +78,26 @@
 
 
 #note {
+	display: inline-block;
+	vertical-align: middle;
 	border: 1px solid gray;
 	padding: 5px;
 	border-radius: 15px;
-	margin: 5%;
+	margin: 2%;
 	resize: none;
 	width: 200px;
-	min-height: 100px;
+	min-height: 150px;
 	overflow: hidden;
 	box-sizing: border-box;
 }
 
+#note:hover {
+	box-shadow: 5px 5px 10px rgba(128,128,128,0.3);
+}
+
 #note-title {
+	display: inline-block;
+	width: 100%;
 	padding: 5px;
 	border: none;
 	border-bottom: 1px solid gray;
@@ -90,6 +106,7 @@
 #note-title:focus {
 	outline: none;
 }
+
 
 #note-text{
 	border: none;
@@ -107,6 +124,7 @@ textarea {
   /* demo only: */
   padding:10px;
   width:250px;
+  min-height: 120px;
   font-size:14px;
   display:block;
 

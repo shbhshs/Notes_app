@@ -10,6 +10,11 @@
 </head>
 
 <body>
+	<b>
+	<div id='header'>
+		
+	</div>
+	</b>
 	<div class='login-page'> 
 		<div class='form'>
 			<form class='register-form' action='http://localhost:5000/registration', method='POST'>
@@ -51,6 +56,19 @@
 		});
 	</script>
 	{% endblock %}
+
+	<script>
+		var i = 0;
+		var txt = 'Welcome to NoteMaker..'; /* The text */
+		var speed = 50; 
+		$(document).ready(function typeWriter() {
+ 			if (i < txt.length) {
+    			document.getElementById("header").innerHTML += txt.charAt(i);
+		    	i++;
+			    setTimeout(typeWriter, speed);
+  			}
+		});
+	</script>
 </body>
 
 </html>

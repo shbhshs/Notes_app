@@ -3,9 +3,14 @@
 	color: rgb(256,256,256);
 }
 
+#header {
+	text-align: center;
+	padding-top: 7%;
+	font-size: 200%;
+}
 .login-page {
 	width: 360px;
-	padding: 10% 0 0;
+	padding: 5% 0 0;
 	margin : auto;
 }
 

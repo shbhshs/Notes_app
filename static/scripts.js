@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('.notes').css('background-color','rgba(255,140,0,0.3)');
 
 
 	$('ul.ulist li').on('click', function(){
@@ -6,10 +7,14 @@ $(document).ready(function(){
 		if(getClass =='trash'){
 			$('#trash').css('display','block');
 			$('#notes').css('display','none');
+			$('.trash').css('background-color','rgba(255,140,0,0.3)');
+			$('.notes').css('background-color','');
 		}
 		if(getClass =='notes'){
 			$('#notes').css('display','block');
 			$('#trash').css('display','none');
+			$('.notes').css('background-color','rgba(255,140,0,0.3)');
+			$('.trash').css('background-color','');
 		}
 
 	});
