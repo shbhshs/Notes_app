@@ -62,7 +62,7 @@
 	width : auto;
 	display: block;
 	height: %;
-	font-size: 2em;
+	font-size: 1.6em;
 	padding: 2%;
 	/*background: red;*/
 }
@@ -119,15 +119,13 @@
 }
 
 textarea { 
-  /* box-sizing: padding-box; */
-  overflow:hidden;
-  /* demo only: */
-  padding:10px;
-  width:250px;
-  min-height: 120px;
-  font-size:14px;
-  display:block;
-
+	overflow: hidden;
+	padding: 10px;
+	width: 250px;
+	min-height: 120px;
+	font-size: 14px;
+	display: block;
+	resize: vertical;
 }
 
 #note-text:focus {
