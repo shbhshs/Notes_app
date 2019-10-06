@@ -40,32 +40,65 @@
 				Create boxes for the notes, These boxes have to be generated
 				at runtime.Lets create one first, statically.
 			-->
+<!--			<div id='note'>
+				<form id='input_note' action='{{ url_for("note_create") }}' method='POST'>
 
-			<div id='note'>
-				<form action='{{ url_for("note_create") }}', method='POST'>
 					<input id='note-title' name='note_title' type='text' placeholder='Title' required><br>
-					<textarea id='note-text' name='note_text' placeholder='Take a note' required></textarea>
+
+					<textarea class='note-textarea' id='input_note' name='note_text'></textarea>
+					<div contenteditable='true' id='note-text' class='input_note'>
+						
+					</div>
+					
+					<button type='submit'>	
+						<i class="fas fa-save save" id='input_note'><span class="tooltiptext">Save</span></i>
+					</button>
+					<button formaction='{{ url_for("note_discard") }}'>
+						<i class="fas fa-trash-alt"><span class="tooltiptext">Delete</span></i>
+					</button>
+					<i class="fas fa-exchange-alt exchange" id="input_note"><span class="tooltiptext">Text <> List</span></i>
+				</form>
+			</div>
+-->
+			<div id='note'>
+				<form action='{{ url_for("note_create") }}', method='POST' id='input_note'>
+					<input id='note-title' name='note_title' type='text' placeholder='Title' required><br>
+					<textarea class='note-textarea' id='input_note' name='note_text'></textarea>
+					<div contenteditable='true' id='note-text' class='input_note'>
+						
+					</div>
+
 					<button>
-						<i class="fas fa-save"><span class="tooltiptext">Save</span></i>
+						<i class="fas fa-save"><span class="tooltiptext" id='input_note'>Save</span></i>
 					</button>
 					<button formaction='{{ url_for("note_discard") }}'>
 						<i class="fas fa-trash-alt"><span class="tooltiptext">Discard</span></i>
 					</button>
+					<i class="fas fa-exchange-alt exchange" id="input_note"><span class="tooltiptext">Text <> List</span></i>
 				</form>
 			</div>
 			{% for i in range(notes_data|length) %}
 				{% if notes_data[i][4] == 0 %}
+
+				{% set div_id = 'C'+ notes_data[i][0]|string %}
 				<div id='note'>
-					<form action='{{ url_for("note_save") }}' method='POST'>
+					<form id='{{div_id}}' action='{{ url_for("note_save") }}' method='POST'>
+
 						<input type='hidden' name='Id' value='{{ notes_data[i][0] }}'/>
 						<label id='note-title' type='text' placeholder='Title'>{{ notes_data[i][1] }}</label><br>
-						<textarea id='note-text' placeholder='Take a note' name='note_text'>{{ notes_data[i][2]}}</textarea>
-						<button>	
-							<i class="fas fa-save"><span class="tooltiptext">Save</span></i>
+
+						<textarea class='note-textarea' id='{{div_id}}' name='note_text'></textarea>
+						<div contenteditable='true' id='note-text' class='{{div_id}}'>
+							{{ notes_data[i][2]|safe }}
+						</div>
+						
+						<button type='submit'>	
+							<i class="fas fa-save save" id='{{div_id}}'><span class="tooltiptext">Save</span></i>
 						</button>
 						<button formaction='{{ url_for("note_delete") }}'>
 							<i class="fas fa-trash-alt"><span class="tooltiptext">Delete</span></i>
 						</button>
+						<i class="fas fa-exchange-alt exchange" id="{{div_id}}"><span class="tooltiptext">Text <> List</span></i>
 					</form>
 				</div>
 				{% endif %}
@@ -79,7 +112,10 @@
 					<form action='{{ url_for("trash_restore") }}' method='POST'>
 						<input type='hidden' name='Id' value='{{ notes_data[i][0] }}' />
 						<label id='note-title' type='text' placeholder='Title'>{{ notes_data[i][1] }}</label><br>
-						<textarea id='note-text' placeholder='Take a note' readonly>{{ notes_data[i][2] }}</textarea>
+						<div id='note-text' >
+							{{ notes_data[i][2]|safe }}
+						</div>
+	
 						<button>
 							<i class="fas fa-trash-restore"><span class="tooltiptext">Restore</span></i>
 						</button>

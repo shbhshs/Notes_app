@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from flask import redirect, url_for, abort, session, g
 from flaskext.mysql import MySQL
+from bs4 import BeautifulSoup
 import os
 import hashlib
 
@@ -138,10 +139,12 @@ def note_save():
     if g.user:
 
         notes_data = request.form
-
+        print(notes_data)
         conn = mysql.connect()
         cursor = conn.cursor()
-
+        print(notes_data['note_text'])
+        soup = BeautifulSoup(notes_data['note_text'])
+	
         cursor.execute('update Notes set notes = "{}" where id = "{}"'
                        .format(notes_data['note_text'],
                                notes_data['Id']))
